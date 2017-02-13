@@ -39,7 +39,7 @@
   function checkpath(path) {
     $('#path').val(path);
     //console.log("checking "+path);
-    //$('#results').append('');
+    $('#results').html('');
     $('#loader').fadeIn();
     steem.api.getState(path, function(err, result) {
       console.log(result);
