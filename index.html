@@ -14,7 +14,7 @@
     a:hover {text-decoration:underline;}
     .yt { width:450px;height:320px;display:inline-block;padding:0px;margin:0px;color:white;background-color:white;float:left;}
     .yt a { color:white;}
-    .ytfooter {display:block;background: rgba(0, 0, 0, 0.5); position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%); border-radius:15px; }
+    .ytfooter {display:block;background: rgba(0, 0, 0, 0.5); position: relative;float: left;padding:5px;top: 50%;left: 50%;transform: translate(-50%, -50%); border-radius:15px; }
     #help {clear:both;padding:10px;display:none;}
     #error {display:none;}
     #results {vertical-align:top;width:100%;display:block;margin:0 auto;text-align:center;}
@@ -85,7 +85,7 @@
     <img src="steemvids.png" id="logo" style="margin:0 auto;clear:both;">
     <p id="intro">Quick access to the latest videos referenced on the Steem blockchain!</p>
     <div id="help" style="display:none;">
-      <p>Enter a path to search for youtube videos, for example :<br /><a href="#" onClick="checkpath('/trending');">trending</a> , <a href="#" onClick="checkpath('/promoted');">promoted</a> , <a href="#" onClick="checkpath('/created/video');">video</a> , <a href="#" onClick="checkpath('/created/openmic');">openmic</a> , <a href="#" onClick="checkpath('/created/music');">music</a> , <a href="#" onClick="checkpath('/created/news');">news</a> , <a href="#" onClick="checkpath('/created/truth');">truth</a> , <a href="#" onClick="checkpath('/created/pizzagate');">pizzagate</a></p>
+      <p>Enter a path to search for youtube videos, for example :<br /><a href="#" onClick="checkpath('/trending');">trending</a> , <a href="#" onClick="checkpath('/promoted');">promoted</a> , <a href="#" onClick="checkpath('/created/video');">video</a> , <a href="#" onClick="checkpath('/created/openmic');">openmic</a> , <a href="#" onClick="checkpath('/created/music');">music</a> , <a href="#" onClick="checkpath('/created/gaming');">gaming</a> , <a href="#" onClick="checkpath('/created/news');">news</a> , <a href="#" onClick="checkpath('/created/truth');">truth</a> , <a href="#" onClick="checkpath('/created/pizzagate');">pizzagate</a></p>
     </div>
     <form id="pathform" onSubmit="checkpath($('#path').val());"><input type="text" id="path" value="/trending" style="text-align:center;"></form><br /><img src="loader.gif" id="loader" style="margin: 0 auto;clear:both;display:none;">
     <div id="error">
