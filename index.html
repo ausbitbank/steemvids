@@ -11,11 +11,9 @@
   <style type="text/css">
     body {height:100%;}
     a {text-decoration:none;font-weight:bold;}
-    .yt { width:480px;height:360px;display:inline-block;padding:0px;margin:0px;color:white;background-color:white;}
+    .yt { width:450px;height:320px;display:inline-block;padding:0px;margin:0px;color:white;background-color:white;float:left;}
     .yt a { color:white;}
-    .ytheader {vertical-align: top; top:5px;}
-    .ytfooter {vertical-align: bottom; bottom:5px;}
-    .ytheader , .ytfooter {display:block;width:100%;height:50%;background: rgba(0, 0, 0, 0.5);}
+    .ytfooter {display:block;background: rgba(0, 0, 0, 0.5); position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%); border-radius:15px; }
     #help {clear:both;padding:10px;display:none;}
     #error {display:none;}
     #results {vertical-align:top;width:90%;display:block;margin:0 auto;text-align:center;}
@@ -29,7 +27,6 @@
     if (match && match[2].length == 11) {
       return match[2];
     } else {
-    //error
       return 0;
     }
   }
@@ -39,16 +36,10 @@
     checkpath(path);
   }
 
-  function test() {
-  //steem.api.getDiscussionsByCreated(query, function(err, result) {
-  //console.log(err, result);
-//});
-  }
-
   function checkpath(path) {
     $('#path').val(path);
-    console.log("checking "+path);
-    $('#results').html('<img src="loader.gif" id="loader" style="margin: 0 auto;clear:both;">');
+    //console.log("checking "+path);
+    $('#results').append('<img src="loader.gif" id="loader" style="margin: 0 auto;clear:both;">');
     steem.api.getState(path, function(err, result) {
       console.log(result);
       var vidhistory = [];
@@ -64,7 +55,7 @@
                   vidhistory.push(ytid);
                   var author = result.content[key].author;
                   var reputation = steem.formatter.reputation(result['accounts'][author].reputation);
-                  vidframe = '<span id="yt'+ytid+'" class="yt" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><a href="https://youtu.be/'+ytid+'" data-lity><div class="ytheader">@'+author+' ('+reputation+')</div><div class="ytfooter">'+result.content[key].title+'</a><br /><br /><small><a href="https://steemit.com/@'+author+'/'+result.content[key].permlink+'">View on Steemit</a></small></div></span>';
+                  vidframe = '<span id="yt'+ytid+'" class="yt" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><a href="https://youtu.be/'+ytid+'" data-lity><div class="ytfooter">@'+author+' ('+reputation+')<br /><br />&quot;'+result.content[key].title+'&quot;</a><br /><br /><small><a href="https://steemit.com/@'+author+'/'+result.content[key].permlink+'">View on Steemit</a></small></div></span>';
                   $('#results').append(vidframe);
                   $('#yt'+ytid).fadeIn();
                 }
@@ -74,21 +65,18 @@
            }
          }
        });
-    //$('#results').append('<div>Found '+vidcount+' videos in '+result.content.length()+' posts</div>');
-    console.log('test');
     $('#loader').remove();
     }
 
 
   $(document).ready(function() {
      $('#help').fadeIn();
-    test();
   });
 
   </script>
   </head><body>
   <div id="container" style="margin:0 auto;text-align:center;">
-    <img src="logo.png" id="logo" style="margin:0 auto;clear:both;"><br />
+    <img src="logo.png" id="logo" style="margin:0 auto;clear:both;">
     <form id="pathform" onSubmit="checkpath($('#path').val());"><input type="text" id="path" value="/trending" style="text-align:center;"></form><br />
     <div id="help" style="display:none;">
       Enter a path to search for youtube videos, for example :<br /><a href="#" onClick="checkpath('/trending');">/trending</a> , <a href="#" onClick="checkpath('/promoted');">/promoted</a> , <a href="#" onClick="checkpath('/created/openmic');">/created/openmic</a> , <a href="#" onClick="checkpath('/created/music');">/created/music</a> , <a href="#" onClick="checkpath('/created/pizzagate');">/created/pizzagate</a></a>
@@ -100,7 +88,4 @@
 
     </div>
   </div>
-
-
-
   </body></html>
