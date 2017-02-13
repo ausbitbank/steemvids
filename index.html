@@ -39,7 +39,8 @@
   function checkpath(path) {
     $('#path').val(path);
     //console.log("checking "+path);
-    $('#results').append('<img src="loader.gif" id="loader" style="margin: 0 auto;clear:both;">');
+    //$('#results').append('');
+    $('#loader').fadeIn();
     steem.api.getState(path, function(err, result) {
       console.log(result);
       var vidhistory = [];
@@ -65,7 +66,7 @@
            }
          }
        });
-    $('#loader').remove();
+    $('#loader').fadeOut();
     }
 
 
@@ -77,7 +78,7 @@
   </head><body>
   <div id="container" style="margin:0 auto;text-align:center;">
     <img src="logo.png" id="logo" style="margin:0 auto;clear:both;">
-    <form id="pathform" onSubmit="checkpath($('#path').val());"><input type="text" id="path" value="/trending" style="text-align:center;"></form><br />
+    <form id="pathform" onSubmit="checkpath($('#path').val());"><input type="text" id="path" value="/trending" style="text-align:center;"></form><br /><img src="loader.gif" id="loader" style="margin: 0 auto;clear:both;display:none;">
     <div id="help" style="display:none;">
       Enter a path to search for youtube videos, for example :<br /><a href="#" onClick="checkpath('/trending');">/trending</a> , <a href="#" onClick="checkpath('/promoted');">/promoted</a> , <a href="#" onClick="checkpath('/created/openmic');">/created/openmic</a> , <a href="#" onClick="checkpath('/created/music');">/created/music</a> , <a href="#" onClick="checkpath('/created/pizzagate');">/created/pizzagate</a></a>
     </div>
