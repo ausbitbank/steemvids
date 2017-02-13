@@ -10,13 +10,16 @@
   <link href="lity.min.css" rel="stylesheet">
   <style type="text/css">
     body {height:100%;}
-    a {text-decoration:none;font-weight:bold;}
+    a {text-decoration:none;font-weight:bold; color:black;}
+    a:hover {text-decoration:underline;}
     .yt { width:450px;height:320px;display:inline-block;padding:0px;margin:0px;color:white;background-color:white;float:left;}
     .yt a { color:white;}
     .ytfooter {display:block;background: rgba(0, 0, 0, 0.5); position: relative;float: left;top: 50%;left: 50%;transform: translate(-50%, -50%); border-radius:15px; }
     #help {clear:both;padding:10px;display:none;}
     #error {display:none;}
     #results {vertical-align:top;width:100%;display:block;margin:0 auto;text-align:center;}
+    #footer {position:relative;bottom:10px;vertical-align:bottom;clear:both;text-align:center;padding:10px;}
+    #intro {font-weight:bold;}
   </style>
   <script>
   var videosites = ["youtu.be","youtube.com","www.youtube.com"];
@@ -38,12 +41,11 @@
 
   function checkpath(path) {
     $('#path').val(path);
-    //console.log("checking "+path);
     $('#results').html('');
     $('#loader').fadeIn();
     steem.api.getState(path, function(err, result) {
-      console.log(result);
-      var vidhistory = [];
+      //console.log(result);
+      var vidhistory = [0];
       for (var key in result.content) {
        if (result.content[key].json_metadata != "") {
          postjson = JSON.parse(result.content[key].json_metadata);
@@ -78,9 +80,10 @@
   </head><body>
   <div id="container" style="margin:0 auto;text-align:center;">
     <img src="steemvids.png" id="logo" style="margin:0 auto;clear:both;">
+    <p id="intro">Quick access to the latest videos referenced on the Steem blockchain!</p>
     <form id="pathform" onSubmit="checkpath($('#path').val());"><input type="text" id="path" value="/trending" style="text-align:center;"></form><br /><img src="loader.gif" id="loader" style="margin: 0 auto;clear:both;display:none;">
     <div id="help" style="display:none;">
-      Enter a path to search for youtube videos, for example :<br /><a href="#" onClick="checkpath('/trending');">/trending</a> , <a href="#" onClick="checkpath('/promoted');">/promoted</a> , <a href="#" onClick="checkpath('/created/video');">/created/video</a> , <a href="#" onClick="checkpath('/created/openmic');">/created/openmic</a> , <a href="#" onClick="checkpath('/created/music');">/created/music</a> , <a href="#" onClick="checkpath('/created/pizzagate');">/created/pizzagate</a></a>
+      <p>Enter a path to search for youtube videos, for example :<br /><a href="#" onClick="checkpath('/trending');">trending</a> , <a href="#" onClick="checkpath('/promoted');">promoted</a> , <a href="#" onClick="checkpath('/created/video');">video</a> , <a href="#" onClick="checkpath('/created/openmic');">openmic</a> , <a href="#" onClick="checkpath('/created/music');">music</a> , <a href="#" onClick="checkpath('/created/news');">news</a> , <a href="#" onClick="checkpath('/created/truth');">truth</a> , <a href="#" onClick="checkpath('/created/pizzagate');">pizzagate</a></p>
     </div>
     <div id="error">
       No results!
