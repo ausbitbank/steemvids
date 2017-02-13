@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html> <head>
+  <title>steemvids.com : videos referenced on the steem network</title>
+  <meta name="description" content="steemvids.com : videos referenced on the steem network"> <meta property="og:title" content="steem network videos steemit"> <meta property="og:site_name" content="steemvids.com">
+  <meta property="og:description" content="steemvids.com : videos referenced on the steem network">
+  <meta charset="UTF-8">
+  <script src="jquery.min.js"></script>
+  <script src="steem.min.js"></script>
+  <script src="lity.min.js"></script>
+  <link href="lity.min.css" rel="stylesheet">
+  <style type="text/css">
+    body {height:100%;}
+    a {text-decoration:none;font-weight:bold;}
+    .yt { width:480px;height:360px;display:inline-block;padding:0px;margin:0px;color:white;background-color:white;}
+    .yt a { color:white;}
+    .ytheader {vertical-align: top; top:5px;}
+    .ytfooter {vertical-align: bottom; bottom:5px;}
+    .ytheader , .ytfooter {display:block;width:100%;height:50%;background: rgba(0, 0, 0, 0.5);}
+    #help {clear:both;padding:10px;display:none;}
+    #error {display:none;}
+    #results {vertical-align:top;width:90%;display:block;margin:0 auto;text-align:center;}
+  </style>
+  <script>
+  var videosites = ["youtu.be","youtube.com","www.youtube.com"];
+
+  function extractyt(url) {
+    var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    if (match && match[2].length == 11) {
+      return match[2];
+    } else {
+    //error
+      return 0;
+    }
+  }
+
+  function submitpath(){
+    path = $('#path').val();
+    checkpath(path);
+  }
+
+  function test() {
+  //steem.api.getDiscussionsByCreated(query, function(err, result) {
+  //console.log(err, result);
+//});
+  }
+
+  function checkpath(path) {
+    $('#path').val(path);
+    console.log("checking "+path);
+    $('#results').html('<img src="loader.gif" id="loader" style="margin: 0 auto;clear:both;">');
+    steem.api.getState(path, function(err, result) {
+      console.log(result);
+      var vidhistory = [];
+      for (var key in result.content) {
+       if (result.content[key].json_metadata != "") {
+         postjson = JSON.parse(result.content[key].json_metadata);
+         if (postjson.hasOwnProperty("links")) {
+           for (var link in postjson.links) {
+            var domain = postjson.links[link].replace('http://','').replace('https://','').split(/[/?#]/)[0];
+            if ($.inArray(domain, videosites) !== -1) {
+              ytid = extractyt(postjson.links[link]);
+              if ($.inArray(ytid, vidhistory) == -1) {
+                  vidhistory.push(ytid);
+                  var author = result.content[key].author;
+                  var reputation = steem.formatter.reputation(result['accounts'][author].reputation);
+                  vidframe = '<span id="yt'+ytid+'" class="yt" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><a href="https://youtu.be/'+ytid+'" data-lity><div class="ytheader">@'+author+' ('+reputation+')</div><div class="ytfooter">'+result.content[key].title+'</a><br /><br /><small><a href="https://steemit.com/@'+author+'/'+result.content[key].permlink+'">View on Steemit</a></small></div></span>';
+                  $('#results').append(vidframe);
+                  $('#yt'+ytid).fadeIn();
+                }
+                }
+              }
+            }
+           }
+         }
+       });
+    //$('#results').append('<div>Found '+vidcount+' videos in '+result.content.length()+' posts</div>');
+    console.log('test');
+    $('#loader').remove();
+    }
+
+
+  $(document).ready(function() {
+     $('#help').fadeIn();
+    test();
+  });
+
+  </script>
+  </head><body>
+  <div id="container" style="margin:0 auto;text-align:center;">
+    <img src="logo.png" id="logo" style="margin:0 auto;clear:both;"><br />
+    <form id="pathform" onSubmit="checkpath($('#path').val());"><input type="text" id="path" value="/trending" style="text-align:center;"></form><br />
+    <div id="help" style="display:none;">
+      Enter a path to search for youtube videos, for example :<br /><a href="#" onClick="checkpath('/trending');">/trending</a> , <a href="#" onClick="checkpath('/promoted');">/promoted</a> , <a href="#" onClick="checkpath('/created/openmic');">/created/openmic</a> , <a href="#" onClick="checkpath('/created/music');">/created/music</a> , <a href="#" onClick="checkpath('/created/pizzagate');">/created/pizzagate</a></a>
+    </div>
+    <div id="error">
+      No results!
+    </div>
+    <div id="results">
+
+    </div>
+  </div>
+
+
+
+  </body></html>
