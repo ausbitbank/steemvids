@@ -58,7 +58,7 @@
   }
 
   function getBookmarkedTags() {
-    var bookmarks = ['video','openmic','music','gaming','news','truth','pizzagate']
+    var bookmarks = ['video','openmic','music','gaming','news','truth','pizzagate','conspiracy','podcast']
     for (var key in bookmarks) {
       $('#bookmarks').append('<a href="#" class="hvr-back-pulse" onClick="checkpath(\''+bookmarks[key]+'\');">'+bookmarks[key]+'</a> ');
     }
@@ -106,6 +106,7 @@
   $(document).ready(function() {
      getBookmarkedTags();
      getTags();
+     checkpath('');
   });
 
   </script>
