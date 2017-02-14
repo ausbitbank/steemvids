@@ -15,6 +15,7 @@
     .yt { width:450px;height:320px;display:inline-block;padding:0px;margin:0px;color:white;background-color:white;float:left;}
     .yt a { color:white;}
     .ytfooter {display:block;background: rgba(0, 0, 0, 0.5); position: relative;float: left;padding:5px;top: 50%;left: 50%;transform: translate(-50%, -50%); border-radius:15px; }
+    .scvote {display:inline-block;margin:0 auto;}
     #help {clear:both;padding:10px;display:none;}
     #error {display:none;}
     #results {vertical-align:top;width:100%;display:block;margin:0 auto;text-align:center;}
@@ -59,7 +60,8 @@
                   vidhistory.push(ytid);
                   var author = result.content[key].author;
                   var reputation = steem.formatter.reputation(result['accounts'][author].reputation);
-                  vidframe = '<span id="yt'+ytid+'" class="yt" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><a href="https://youtu.be/'+ytid+'" data-lity><div class="ytfooter">@'+author+' ('+reputation+')<br /><br />&quot;'+result.content[key].title+'&quot;</a><br /><br /><small><a href="https://steemit.com/@'+author+'/'+result.content[key].permlink+'">View on Steemit</a></small></div></span>';
+                  var voteframe = '<iframe src="https://steemconnect.com/embed/vote?author='+result.content[key].author+'&amp;permlink='+result.content[key].permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
+                  var vidframe = '<span id="yt'+ytid+'" class="yt" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><a href="https://youtu.be/'+ytid+'" data-lity><div class="ytfooter">@'+author+' ('+reputation+')<br /><br />&quot;'+result.content[key].title+'&quot;</a><br /><br /><small><a href="https://steemit.com/@'+author+'/'+result.content[key].permlink+'">View on Steemit</a></small><br />'+voteframe+'</div></span>';
                   $('#results').append(vidframe);
                   $('#yt'+ytid).fadeIn();
                 }
@@ -75,7 +77,7 @@
 
   $(document).ready(function() {
      $('#help').fadeIn();
-     checkpath('/created/music');
+     checkpath('/created/video');
   });
 
   </script>
