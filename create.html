@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html> <head>
+  <title>steemvids.com : videos referenced on the steem network</title>
+  <meta name="description" content="steemvids.com : videos referenced on the steem network"> <meta property="og:title" content="steem network videos steemit"> <meta property="og:site_name" content="steemvids.com">
+  <meta property="og:description" content="steemvids.com : videos referenced on the steem network">
+  <meta charset="UTF-8">
+  <script src="jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.0/clipboard.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
+  <style type="text/css">
+    body {height:100%;text-align:center;}
+    #markup {width:80%;text-align:left;}
+    #youtubeurl {width:50%;}
+  </style>
+  <script type='text/javascript'>
+  function extractyt(url) {
+    var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    var match = url.match(regExp);
+    if (match && match[2].length == 11) {
+      return match[2];
+    } else {
+      return 0;
+    }
+  }
+
+  function newsteemitpost() {
+   window.open('https://steemit.com/submit.html', '_blank');
+  }
+
+  function checkytapi(id) {
+    var apiurlbase = 'https://www.googleapis.com/youtube/v3/videos?';
+    var apiparams = 'part=snippet&id='+id+'&fields=items/snippet/title,items/snippet/description,items/snippet/publishedAt&key=AIzaSyCWasmm92xD17FDVhgGvxqSSioH9lzwqHQ';
+    var apiurl = apiurlbase+apiparams;
+    $.getJSON(apiurl, function(data) {
+      postdate = data.items[0].snippet.publishedAt.slice(0,10);
+      var thumbdiv = data.items[0].snippet.title+'<br /><img src="https://i.ytimg.com/vi/'+id+'/default.jpg">';
+      $("#thumb").html(thumbdiv).fadeIn();
+      var markdown = '<center><img src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg"></center><br />\n## '+data.items[0].snippet.title+'\n\nhttps://www.youtube.com/watch?v='+id+'\n\n### Posted to <a href="https://www.youtube.com/watch?v='+id+'">youtube</a> on '+postdate+' with this description :\n\n '+data.items[0].snippet.description+'\n\n<hr>Template by @ausbitbank - if you haven\'t removed this you\'re doing it wrong.';
+      $("#markup").val(markdown).fadeIn();
+      $("#buttons").fadeIn();
+    });
+  }
+
+  $(document).ready(function() {
+    new Clipboard('.clipbtn');
+    $("#ytform").submit(function(event) {
+    event.preventDefault();
+    var url = $('#youtubeurl').val() ;
+    checkytapi(extractyt(url));
+    });
+  });
+
+  </script>
+  </head><body>
+  <div id="container" style="margin:0 auto;text-align:center;">
+    <span style="clear:both;display: inline-block; width: 8rem; height: 8rem;" is="null"><svg viewBox="0 0 28 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="steem"><path d="M4.22924444,3.23195745 C3.94488889,3.09004255 0.337866667,6.07148936 0.337866667,8.265 C0.332888889,11.2631064 4.54533333,18.0552766 5.25466667,20.6825532 C5.86506667,22.9359149 4.21928889,25.6403191 4.67164444,25.7631064 C5.0848,26.0284255 9.01475556,22.0486383 9.16782222,20.3518298 C9.36506667,17.6498936 4.57893333,9.77114894 4.19751111,7.73682979 C3.75511111,5.36253191 4.54782222,3.28502128 4.22924444,3.23195745 L4.22924444,3.23195745 L4.22924444,3.23195745 Z" id="Fill-1" fill="#1A5099"></path><path d="M13.2321778,0.130191489 C12.8700444,-0.0505957447 8.26871111,3.74778723 8.26871111,6.54844681 C8.26373333,10.3715106 13.6353778,19.0338723 14.5394667,22.3812128 C15.3172444,25.2546809 13.2197333,28.7038298 13.7934222,28.8580851 C14.3235556,29.1949787 19.3324444,24.1242979 19.5296889,21.9573191 C19.7823111,18.5131064 13.6764444,8.46738298 13.1904889,5.86910638 C12.6267556,2.84878723 13.6353778,0.197446809 13.2321778,0.130191489 L13.2321778,0.130191489 L13.2321778,0.130191489 Z" id="Fill-2" fill="#4BA2F2"></path><path d="M22.5238222,3.23195745 C22.2419556,3.09004255 18.6324444,6.07148936 18.6324444,8.265 C18.6280889,11.2631064 22.8399111,18.0552766 23.5498667,20.6825532 C24.1596444,22.9359149 22.5144889,25.6403191 22.9662222,25.7631064 C23.3818667,26.0284255 27.3124444,22.0486383 27.4630222,20.3518298 C27.6596444,17.6498936 22.8741333,9.77114894 22.4920889,7.73682979 C22.0503111,5.36253191 22.8424,3.28502128 22.5238222,3.23195745 L22.5238222,3.23195745 Z" id="Fill-3" fill="#1A5099"></path></g></g></svg></span><br />
+    <img src="steemvids.png" id="logo" style="margin:0 auto;clear:both;">
+  <p class="intro">Enter a youtube video url to get an easy template to begin your steemit post</p>
+  <form id="ytform"><input type="text" id="youtubeurl" name="youtubeurl" value=""><input type="submit" value="Load info from youtube"></form>
+  <div id="thumb" style="display:none;"></div>
+  <textarea id="markup" cols="50" rows="15" style="display:none;"></textarea>
+  <div id="buttons" style="display:none;"><button class="clipbtn" data-clipboard-target="#markup"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy markdown to clipboard</button><button onclick="newsteemitpost();"><i class="fa fa-external-link" aria-hidden="true"></i> Submit new post on steemit</button></div>
+  </div></body></html>
