@@ -35,7 +35,7 @@
       postdate = data.items[0].snippet.publishedAt.slice(0,10);
       var thumbdiv = data.items[0].snippet.title+'<br /><img src="https://i.ytimg.com/vi/'+id+'/default.jpg">';
       $("#thumb").html(thumbdiv).fadeIn();
-      var markdown = '<center><img src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg"></center><br />\n## '+data.items[0].snippet.title+'\n\nhttps://www.youtube.com/watch?v='+id+'\n\n### Posted to <a href="https://www.youtube.com/watch?v='+id+'">youtube</a> on '+postdate+' with this description :\n\n '+data.items[0].snippet.description+'\n\n<hr>Template by @ausbitbank - if you haven\'t removed this you\'re doing it wrong.';
+      var markdown = '<center><img src="https://i.ytimg.com/vi/'+id+'/hqdefault.jpg"></center><br />Write an introduction/description for your video here!<br />\n## '+data.items[0].snippet.title+'\n\nhttps://www.youtube.com/watch?v='+id+'\n\n### Posted to <a href="https://www.youtube.com/watch?v='+id+'">youtube</a> on '+postdate+' with this description :\n\n '+data.items[0].snippet.description+'\n\n<hr>Template via <a href="https://steemvids.com">steemvids</a>';
       $("#markup").val(markdown).fadeIn();
       $("#buttons").fadeIn();
     });
