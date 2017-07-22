@@ -135,7 +135,7 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
 
     if (path.startsWith("@")){
       steem.api.getState('/'+path, function(err, result) {
-        if (err){console.log(err);} else if (result) {render(result['content']);}
+        if (err){console.log(err);} else if (result) {console.log(result);render(result['content']);}
       }
     )};
 
