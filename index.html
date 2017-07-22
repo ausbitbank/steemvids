@@ -116,7 +116,7 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
                   var author = result[key].author;
                   var reputation = steem.formatter.reputation(result[key].author_reputation);
                   var voteframe = '<iframe src="https://steemconnect.com/embed/vote?author='+result[key].author+'&amp;permlink='+result[key].permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
-                  var vidframe = '<span id="yt'+ytid+'" class="yt hvr-reveal" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><div class="ytfooter"><a href="#" onClick="checkpath(\'/@'+author+'\');">@'+author+' ('+reputation+')</a><br /><br />&quot;<a href="https://youtu.be/'+ytid+'" data-lity>'+result[key].title+'&quot;</a><br /><span class="yttitle"></span><br /><small><a href="https://steemit.com/@'+author+'/'+result[key].permlink+'">View on Steemit</a></small><br />'+voteframe+'</div></span>';
+                  var vidframe = '<span id="yt'+ytid+'" class="yt hvr-reveal" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><div class="ytfooter"><a href="#" onClick="checkpath(\'@'+author+'\');">@'+author+' ('+reputation+')</a><br /><br />&quot;<a href="https://youtu.be/'+ytid+'" data-lity>'+result[key].title+'&quot;</a><br /><span class="yttitle"></span><br /><small><a href="https://steemit.com/@'+author+'/'+result[key].permlink+'">View on Steemit</a></small><br />'+voteframe+'</div></span>';
                   $('#results').append(vidframe);
                   $('#loader').fadeOut();
                 }
