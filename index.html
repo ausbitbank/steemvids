@@ -9,7 +9,7 @@
   <script src="lity.min.js"></script>
   <link href="lity.min.css" rel="stylesheet">
   <link href="hover-min.css" rel="stylesheet" media="all">
-  <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet">
   <link href="http//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
   <style type="text/css">
     body {height:100%;font-family: 'Lato', sans-serif;}
@@ -116,7 +116,7 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
                   var author = result[key].author;
                   var reputation = steem.formatter.reputation(result[key].author_reputation);
                   var voteframe = '<iframe src="https://steemconnect.com/embed/vote?author='+result[key].author+'&amp;permlink='+result[key].permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
-                  var vidframe = '<span id="yt'+ytid+'" class="yt hvr-reveal" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><a href="https://youtu.be/'+ytid+'" data-lity><div class="ytfooter">@'+author+' ('+reputation+')<br /><br />&quot;'+result[key].title+'&quot;</a><br /><span class="yttitle"></span><br /><small><a href="https://steemit.com/@'+author+'/'+result[key].permlink+'">View on Steemit</a></small><br />'+voteframe+'</div></span>';
+                  var vidframe = '<span id="yt'+ytid+'" class="yt hvr-reveal" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><div class="ytfooter"><a href="#" onClick="checkpath(\'/@'+author+'\');">@'+author+' ('+reputation+')</a><br /><br />&quot;<a href="https://youtu.be/'+ytid+'" data-lity>'+result[key].title+'&quot;</a><br /><span class="yttitle"></span><br /><small><a href="https://steemit.com/@'+author+'/'+result[key].permlink+'">View on Steemit</a></small><br />'+voteframe+'</div></span>';
                   $('#results').append(vidframe);
                   $('#loader').fadeOut();
                 }
