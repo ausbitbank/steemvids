@@ -68,7 +68,7 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
   }
 
   function getTags() {
-    steem.api.getTrendingTags('', 50, function(err, result) {
+    steem.api.getTrendingTags('', 100, function(err, result) {
       $('#tags').html('<h3>Trending Tags:</h3>');
       for (var key in result) {
         $('#tags').append('<a href="#" class="hvr-back-pulse" onClick="checkpath(\''+result[key].name+'\');">'+result[key].name+'</a> ');
@@ -83,10 +83,6 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
       $('#bookmarks').append('<a href="#" class="hvr-back-pulse" onClick="checkpath(\''+bookmarks[key]+'\');">'+bookmarks[key]+'</a> ');
     }
     $('#bookmarks').fadeIn();
-  }
-
-  function checkaccount(account) {
-
   }
 
   function newsteemitpost() {
@@ -104,13 +100,9 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
     //return yttitle;
   }
 
-  function getblogposts() {
-    steem.api.getState('/@'+username, function(err, result) {
-    });
-  }
-
   function render(result){
       var vidhistory = [0];
+      console.log(result);
       for (var key in result) {
        if (result[key].json_metadata != "") {
          postjson = JSON.parse(result[key].json_metadata);
@@ -139,7 +131,7 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
     $('#path').val(path);
     $('#results').html('');
     $('#loader').fadeIn();
-    console.log(path);
+    console.log('Loading path '+path);
 
     if (path.startsWith("@")){
       steem.api.getState('/'+path, function(err, result) {
@@ -165,13 +157,11 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
      getTags();
      checkpath('');
   });
-
-  console.log('test');
   </script>
   </head><body>
   <div id="container" style="margin:0 auto;text-align:center;">
     <img src="Logos_Logo_Small.png" id="logo" style="margin:0 auto;clear:both;">
-    <p id="intro">Quick access to the latest videos referenced on the Steem blockchain!<br /><a class="button hvr-float-shadow" href="https://steemit.com/steemvids/@ausbitbank/steemvids-com-alpha-preview" target="_blank">Read more</a></p>
+    <p id="intro">Quick access to the latest videos referenced on the Steem blockchain !</p>
     <div id="bookmarks" style="display:none;">
       <h3>Bookmarked Tags</h3>
     </div>
@@ -189,6 +179,6 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
     </div>
   </div>
   <div id="footer">
-    <small>Created by <a href="https://steemit.com/@ausbitbank">@ausbitbank</a> for steemit.<br /><a href="https://steemviz.com">steemviz</a> ~ <a href="https://steemcap.com">steemcap</a></small>
+    <small>Created by <a href="https://steemit.com/@ausbitbank">@ausbitbank</a> for <a href="https://steemit.com">Steemit</a>.</small>
   </div>
   </body></html>
