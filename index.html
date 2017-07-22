@@ -20,14 +20,14 @@
     .scvote {display:inline-block;margin:0 auto;}
     #help {clear:both;padding:10px;display:none;}
     #error {display:none;}
-    #results {vertical-align:top;width:100%;display:block;margin:0 auto;text-align:center;}
+    #results {vertical-align:top;width:100%;display:block;margin:0 auto;text-align:center;clear:both;}
     #footer {position:relative;bottom:10px;vertical-align:bottom;clear:both;text-align:center;padding:10px;}
     #intro {font-weight:bold;}
     #path {border-radius:5px;border-color:#1A5099}
-    #tags {width:50%; margin:0 auto;}
+    #tags {width:50%; margin:0 auto;clear:both;}
     #tags a {font-size:small;}
-    #bookmarks a {font-size:small;}
-    #pathdiv {padding:10px;}
+    #bookmarks a {font-size:small;clear:both;}
+    #pathdiv {padding:10px;clear:both;}
     .button { display: inline-block; position: relative; margin: 1.2em 0 1em 0; padding: 1em; background: #1E4F98; border: none; text-decoration: none; font-weight: 700; color: white; }
     #yttitle {font-size:small;font-weight:bold;clear:both;}
     h1,h2,h3,h4,h5 {font-family: 'Montserrat', sans-serif;}
@@ -161,7 +161,7 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
   </head><body>
   <div id="container" style="margin:0 auto;text-align:center;">
     <img src="Logos_Logo_Small.png" id="logo" style="margin:0 auto;clear:both;height:250px;">
-    <p id="intro">Quick access to the latest videos referenced on the Steem blockchain !</p>
+    <h3 id="intro">Quick access to the latest videos referenced on the Steem blockchain !</h3>
       <div id="pathdiv">
       <form id="pathform"><input type="text" id="path" value="/trending" style="text-align:center;"></form><br /><img src="loader.gif" id="loader" style="margin: 0 auto;clear:both;display:none;">
     </div>
@@ -181,6 +181,7 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
     <div id="tags">
 
     </div>
+
   </div>
   <div id="footer">
     <small>Created by <a href="https://steemit.com/@ausbitbank">@ausbitbank</a> for <a href="https://steemit.com">Steemit</a>.</small>
