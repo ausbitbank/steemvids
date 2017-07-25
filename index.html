@@ -16,7 +16,10 @@
     a {text-decoration:none;font-weight:bold; color:black;}
     .yt { width:450px;height:260px;display:inline-block;padding:0px;margin:0px;color:white;background-color:white;float:left;border-radius:25px;background-repeat: no-repeat;background-position: center; }
     .yt a { color:white;}
-    .ytfooter {display:block;background: rgba(0, 0, 0, 0.5); position: relative;float: left;padding:5px;top: 50%;left: 50%;transform: translate(-50%, -50%); border-radius:15px; }
+    .ytfooter {display:block;background: rgba(0, 0, 0, 0.6);position:absolute;bottom:0px;padding:5px;vertical-align:bottom;text-align:center;width:100%; }
+    .ytmiddle {display:none;background: rgba(0, 0, 0, 0.5);padding:5px;}
+    .ytheader {display:block;background: rgba(0, 0, 0, 0.6);position:relative;top:0px;padding:5px;vertical-align:top; }
+    .footer {display:block;vertical-align:bottom;postion:relative;bottom:5px;}
     .scvote {display:inline-block;margin:0 auto;}
     #help {clear:both;padding:10px;display:none;}
     #error {display:none;}
@@ -30,7 +33,7 @@
     #pathdiv {padding:10px;clear:both;}
     .button { display: inline-block; position: relative; margin: 1.2em 0 1em 0; padding: 1em; background: #1E4F98; border: none; text-decoration: none; font-weight: 700; color: white; }
     .divider {clear:both;margin:0 auto;margin:0 auto;}
-    #yttitle {font-size:small;font-weight:bold;clear:both;}
+    #yttitle {font-size:small;font-weight:bold;clear:both;vertical-align:top;}
     h1,h2,h3,h4,h5 {font-family: 'Montserrat', sans-serif;}
   </style>
   <script>
@@ -96,7 +99,8 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
     var apiurl = apiurlbase+apiparams;
     $.getJSON(apiurl, function(data) {
       yttitle = data.items[0].snippet.title;
-      $('#yt'+id+' > .ytfooter > .yttitle').html('<i class="fa fa-youtube fa-2" aria-hidden="true"></i> '+yttitle);
+      console.log(yttitle);
+      $('#yt'+id+' > .ytheader > .yttitle').html('<a href="https://youtu.be/'+id+'" data-lity><i class="fa fa-youtube-play" aria-hidden="true"></i> '+yttitle+'</a>');
     });
     //return yttitle;
   }
@@ -115,11 +119,13 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
               if ($.inArray(ytid, vidhistory) == -1) {
                   vidhistory.push(ytid);
                   var author = result[key].author;
+                  var category = result[key].category;
                   var reputation = steem.formatter.reputation(result[key].author_reputation);
-                  var voteframe = '<iframe src="https://steemconnect.com/embed/vote?author='+result[key].author+'&amp;permlink='+result[key].permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
-                  var vidframe = '<span id="yt'+ytid+'" class="yt hvr-reveal" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><div class="ytfooter"><a href="#" onClick="checkpath(\'@'+author+'\');">@'+author+' ('+reputation+')</a><br /><br />&quot;<a href="https://youtu.be/'+ytid+'" data-lity>'+result[key].title+'&quot;</a><br /><span class="yttitle"></span><br /><small><a href="https://steemit.com/@'+author+'/'+result[key].permlink+'">View on Steemit</a></small><br />'+voteframe+'</div></span>';
+                  var voteframe = '<iframe src="https://steemconnect.com/embed/vote?author='+author+'&amp;permlink='+result[key].permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
+                  var vidframe = '<span id="yt'+ytid+'" class="yt hvr-reveal" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><div class="ytheader"><span class="yttitle"></span></div><div class="ytmiddle"></div><div class="ytfooter"><small><a href="#" onClick="checkpath(\'@'+author+'\');">@'+author+' ('+reputation+')</a> tagged <a href="#" onClick="checkpath(\''+category+'\');">'+category+'</a> in:<br /><a href="https://steemit.com/@'+author+'/'+result[key].permlink+'" target="_blank">'+result[key].title+'</a></small></div></span>';
                   $('#results').append(vidframe);
                   $('#loader').fadeOut();
+                  getyttitle(ytid);
                 }
               }
             }
