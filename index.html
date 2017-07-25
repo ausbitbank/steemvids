@@ -10,7 +10,7 @@
   <link href="lity.min.css" rel="stylesheet">
   <link href="hover-min.css" rel="stylesheet" media="all">
   <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet">
-  <link href="http//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" media="all">
   <style type="text/css">
     body {height:100%;font-family: 'Lato', sans-serif;}
     a {text-decoration:none;font-weight:bold; color:black;}
@@ -21,18 +21,20 @@
     .ytheader {display:block;background: rgba(0, 0, 0, 0.6);position:relative;top:0px;padding:5px;vertical-align:top; }
     .footer {display:block;vertical-align:bottom;postion:relative;bottom:5px;}
     .scvote {display:inline-block;margin:0 auto;}
+    .fa {color:#1E4F98;}
     #help {clear:both;padding:10px;display:none;}
     #error {display:none;}
     #results {vertical-align:top;width:100%;display:block;margin:0 auto;text-align:center;clear:both;}
     #footer {position:relative;bottom:10px;vertical-align:bottom;clear:both;text-align:center;padding:10px;}
     #intro {font-weight:bold;}
-    #path {border-radius:5px;border-color:#1A5099}
+    #path {border-radius:5px;border-color:#1A5099;}
     #tags {width:50%; margin:0 auto;clear:both;}
     #tags a {font-size:small;}
     #bookmarks a {font-size:small;clear:both;}
     #pathdiv {padding:10px;clear:both;}
     .button { display: inline-block; position: relative; margin: 1.2em 0 1em 0; padding: 1em; background: #1E4F98; border: none; text-decoration: none; font-weight: 700; color: white; }
     .divider {clear:both;margin:0 auto;margin:0 auto;}
+    hr {width:50%;}
     #yttitle {font-size:small;font-weight:bold;clear:both;vertical-align:top;}
     h1,h2,h3,h4,h5 {font-family: 'Montserrat', sans-serif;}
   </style>
@@ -122,7 +124,7 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
                   var category = result[key].category;
                   var reputation = steem.formatter.reputation(result[key].author_reputation);
                   var voteframe = '<iframe src="https://steemconnect.com/embed/vote?author='+author+'&amp;permlink='+result[key].permlink+'" allowtransparency="true" scrolling="no" class="scvote" width="50" height="20" frameborder="0"></iframe>';
-                  var vidframe = '<span id="yt'+ytid+'" class="yt hvr-reveal" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><div class="ytheader"><span class="yttitle"></span></div><div class="ytmiddle"></div><div class="ytfooter"><small><a href="#" onClick="checkpath(\'@'+author+'\');">@'+author+' ('+reputation+')</a> tagged <a href="#" onClick="checkpath(\''+category+'\');">'+category+'</a> in:<br /><a href="https://steemit.com/@'+author+'/'+result[key].permlink+'" target="_blank">'+result[key].title+'</a></small></div></span>';
+                  var vidframe = '<span id="yt'+ytid+'" class="yt hvr-reveal" style="background-image:url(https://img.youtube.com/vi/'+ytid+'/0.jpg);"><div class="ytheader"><span class="yttitle"></span></div><div class="ytmiddle"></div><div class="ytfooter"><small> <a href="#" onClick="checkpath(\'@'+author+'\');"><i class="fa fa-user" aria-hidden="true"></i> @'+author+' ('+reputation+')</a> <a href="#" onClick="checkpath(\''+category+'\');"><i class="fa fa-tag" aria-hidden="true"></i> '+category+'</a> <hr><a href="https://steemit.com/@'+author+'/'+result[key].permlink+'" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> '+result[key].title+'</a></small></div></span>';
                   $('#results').append(vidframe);
                   $('#loader').fadeOut();
                   getyttitle(ytid);
@@ -170,7 +172,7 @@ key:"throw",value:function(t,e){var r=t;throw("undefined"!=typeof e&&null!==e?e.
     <img src="Logos_Logo_Small.png" id="logo" style="margin:0 auto;clear:both;height:250px;">
     <h3 id="intro">Quick access to the latest videos referenced on the Steem blockchain !</h3>
       <div id="pathdiv">
-      <form id="pathform"><input type="text" id="path" value="/trending" style="text-align:center;"></form><br /><img src="loader.gif" id="loader" style="margin: 0 auto;clear:both;display:none;">
+      <form id="pathform"><span class="icon"><i class="fa fa-search"></i> <input type="text" id="path" value="/trending" style="text-align:center;"></form><br /><img src="loader.gif" id="loader" style="margin: 0 auto;clear:both;display:none;">
     </div>
     <div id="error">
       No results!
